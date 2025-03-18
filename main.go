@@ -1,76 +1,34 @@
 package main
 
-// import "fmt"
 import (
-	"fmt"
-	"golang/calculation"
+	"log"
+	"net/http"
 )
 
 func main() {
-	// Variable Declaration
-	var name string = "Reynaldi"
-	var belajarGolang bool = true
-	age := 22
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", homeHandler)
+	mux.HandleFunc("/hello", helloHandler)
+	mux.HandleFunc("/rey", reyHandler)
 
-	// Print
-	fmt.Println("Hello World")
-	// sentence	:= Entity()
-	// fmt.Println(sentence)
+	log.Println("Starting server on :8080")
 
-	fmt.Println("Saya", name)
-	fmt.Println("Umur saya", age)
+	err := http.ListenAndServe(":8080", mux)
+	log.Fatal(err)
+}
 
-	// Conditional
-	if age > 20 {
-		fmt.Println("Umur saya lebih dari 20 tahun")
-	} else {
-		fmt.Println("Umur saya kurang dari 20 tahun")
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
 	}
-	fmt.Println("Belajar Golang", belajarGolang)
+	w.Write([]byte("Welcome to the home page"))
+}
 
-	// Calling Function
-	addResult := calculation.Add(10, 5)
-	fmt.Println(addResult)
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("hello world"))
+}
 
-	multiplyResult := calculation.Multiply(10, 5)
-	fmt.Println(multiplyResult)
-
-	// Looping
-	for i := 0; i < 15; i++ {
-		fmt.Println("Saya Ganteng", i+1)
-	}
-
-	title := "Golang the best language"
-	for index, letter := range title {
-		fmt.Println("index", index, "letter", string(letter))
-	}
-
-	// Looping with if
-	for index, letter := range title {
-		if index%2 == 0 {
-			fmt.Println("index", index, "letter", string(letter))
-		}
-	}
-
-	// Looping with switch
-	for index, letter := range title {
-		letterString := string(letter)
-
-		switch letterString {
-		case "a", "i", "u", "e", "o":
-			fmt.Println("index", index, "letter", letterString)
-		}
-
-	}
-
-	// Array
-	programmingLanguage := [...]string{"PHP", "Python", "Golang", "Javascript"}
-	fmt.Println(programmingLanguage)
-	lengthProgrammingLanguage := len(programmingLanguage)
-	fmt.Println(lengthProgrammingLanguage)
-
-	// Looping Array
-	for index, lang := range programmingLanguage {
-		fmt.Println("index", index, "language", lang)
-	}
+func reyHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("hello world"))
 }
