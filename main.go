@@ -73,4 +73,58 @@ func main() {
 	for index, lang := range programmingLanguage {
 		fmt.Println("index", index, "language", lang)
 	}
+
+	// Slice
+	var gamingConsole []string
+	gamingConsole = append(gamingConsole, "Playstation2")
+	gamingConsole = append(gamingConsole, "Playstation3")
+	gamingConsole = append(gamingConsole, "Playstation4")
+
+	for _, console := range gamingConsole {
+		fmt.Println(console)
+	}
+
+	// Map
+	myMap := map[string]string{"golang": "is beautiful", "php": "is lambo"}
+	fmt.Println(myMap)
+
+	// Check Key in Map
+	value, isAvailable := myMap["ruby"]
+	fmt.Println(value, isAvailable)
+
+	// Slice of Map
+	students := []map[string]string{
+		{"name": "Reynaldi", "score": "100"},
+		{"name": "Alex", "score": "80"},
+	}
+	for _, student := range students {
+		fmt.Println(student["name"], " - ", student["score"])
+	}
+
+	// Average Calculation
+	scores := [8]int{100, 80, 75, 92, 70, 93, 88, 67}
+	var total int
+	for _, score := range scores {
+		total = total + score
+	}
+	length := len(scores)
+	average := float64(total) / float64(length)
+	fmt.Println("Average", average)
+
+	// Good Scores
+	scores2 := [8]int{100, 80, 75, 92, 70, 93, 88, 67}
+	var goodScores []int
+	for _, score := range scores2 {
+		if score >= 90 {
+			goodScores = append(goodScores, score)
+		}
+	}
+	fmt.Println("Good Scores", goodScores)
+
+	// Call Function
+	printMyResult("Hello World")
+}
+
+func printMyResult(sentence string) {
+	fmt.Println(sentence)
 }
